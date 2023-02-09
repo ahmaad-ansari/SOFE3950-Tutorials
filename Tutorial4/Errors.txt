@@ -39,44 +39,39 @@ $400: What is the name of the first artificial satellite to be launched into spa
 Answer: Sputnik 1
 
 
+// print categories and dollar values for each unanswered question in questions array
+    int width = 20;
 
-int width = 20;
-  int unanswered_question_count = 0;
+    for (int i = 0; i < 3; ++i) {
+		putchar('+');
+		for (int j = 0; j < width; ++j)
+			putchar('-');
+	}
+	printf("+\n");
 
-  for (int i = 0; i < CATEGORIES_COUNT; ++i) {
-    unanswered_question_count += (questions[i].answered == false);
-  }
+	for(int i = 0; i < 3; i++) 
+		printf("| %-*s", width - 1, categories[i]);
+	printf("|\n");
 
-  putchar('+');
-  for (int j = 0; j < width; ++j) {
-    putchar('-');
-  }
-  printf("+\n");
+	for (int i = 0; i < 3; ++i) {
+		putchar('+');
+		for (int j = 0; j < width; ++j)
+			putchar('-');
+	}
 
-  for (int i = 0; i < CATEGORIES_COUNT; i++) {
-    printf("| %-*s", width - 1, categories[i]);
-  }
-  printf("|\n");
+	for(int i = 0; i < 12; i++) {
+		if(questions[i].answered == false) {
+			printf("| $&-*d", width - 2, questions[i].value);
+		} else {
+			printf("| %-*s", width - 2, " - ");
+		}
 
-  putchar('+');
-  for (int j = 0; j < width; ++j) {
-    putchar('-');
-  }
-  for (int i = 0; i < unanswered_question_count; ++i) {
-    int question_index = i * CATEGORIES_COUNT;
-    for (int j = 0; j < CATEGORIES_COUNT; ++j) {
-      int index = question_index + j;
-      if (!questions[index].answered) {
-        printf("| $%*d", width - 2, questions[index].value);
-      } else {
-        printf("| %-*s", width - 2, " - ");
-      }
-    }
-    printf("|\n");
-  }
+		if(i % 3 == 2)
+			printf("|\n");
+	}
 
-  putchar('+');
-  for (int j = 0; j < width; ++j) {
-    putchar('-');
-  }
-  return 0;
+	for (int i = 0; i < 3; ++i) {
+		putchar('+');
+		for (int j = 0; j < width; ++j)
+			putchar('-');
+	}
