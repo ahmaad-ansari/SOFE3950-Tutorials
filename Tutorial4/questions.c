@@ -23,58 +23,50 @@ void initialize_game(void)
         "History", 
         "Literature", 
         "Science and Technology"
-    }
+    };
     char *questions[] = {
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-    }
+        "What year did the American Civil War end?",
+        "Who was the first president of the United States?",
+        "What was the date of the attack on Pearl Harbor?",
+        "Who was Julius Caesar assassinated by?",
+        "Who wrote the novel 'Pride and Prejudice'?",
+        "Who wrote the novel 'Moby Dick'?",
+        "Who wrote the play 'Hamlet'?",
+        "Who wrote the novel 'To Kill a Mockingbird'?",
+        "Who is considered the father of the computer?",
+        "What is the study of life called?",
+        "What is the chemical symbol for gold?",
+        "What is the name of the first artificial satellite to be launched into space?"
+    };
     char *answers[] = {
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-    }
+        "1865",
+        "George Washington",
+        "December 7, 1941",
+        "Marcus Brutus and other senators",
+        "Jane Austen",
+        "Herman Melville",
+        "William Shakespeare",
+        "Harper Lee",
+        "Charles Babbage",
+        "Biology",
+        "Au",
+        "Sputnik 1"
+    };
     int values[] = {
         100,
         200,
         300,
         400
-    }
+    };
 
     // initialize each question struct and assign it to the questions array
     for (int i = 0; i < 12; i++) {
-        strcpy(questions[i].category, "");
-        strcpy(questions[i].question, "");
-        strcpy(questions[i].answer, "");
-        strcpy(questions[i].value, "");
-        strcpy(questions[i].answered, FALSE);
-
-        char category[MAX_LEN];
-        char question[MAX_LEN];
-        char answer[MAX_LEN];
-        int value;
-        bool answered;
+        strcpy(questions[i].category, categories[i%3]);
+        strcpy(questions[i].question, questions[i]);
+        strcpy(questions[i].answer, answers[i]);
+        strcpy(questions[i].value, values[i%4]);
+        questions[i].answered = false;
     }
-
-
 
 }
 
