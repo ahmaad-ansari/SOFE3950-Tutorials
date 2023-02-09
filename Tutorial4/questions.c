@@ -8,12 +8,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "questions.h"
+#include <stdbool.h>
+// #include "questions.h" // HAD TO REMOVE THIS LINE FOR THE MAKEFILE TO RUN
 
 // Initializes the array of questions for the game
 void initialize_game(void)
 {
-    printf("START GAME HERE");
     // initialize each question struct and assign it to the questions array
 }
 
