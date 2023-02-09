@@ -13,6 +13,7 @@
 // Initializes the array of questions for the game
 void initialize_game(void)
 {
+    printf("START GAME HERE");
     // initialize each question struct and assign it to the questions array
 }
 

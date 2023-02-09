@@ -1,0 +1,5 @@
+gcc -Wall -Wextra -std=c99 -c players.c 
+gcc -Wall -Wextra -std=c99 jeopardy.o questions.o players.o  -o jeopardy.exe 
+/usr/bin/ld: questions.o:(.bss+0x0): multiple definition of `questions'; jeopardy.o:(.bss+0x0): first defined here
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:11: jeopardy.exe] Error 1
