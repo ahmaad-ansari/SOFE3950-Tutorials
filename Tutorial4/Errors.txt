@@ -1,5 +1,4 @@
-gcc -Wall -Wextra -std=c99 -c players.c 
-gcc -Wall -Wextra -std=c99 jeopardy.o questions.o players.o  -o jeopardy.exe 
-/usr/bin/ld: questions.o:(.bss+0x0): multiple definition of `questions'; jeopardy.o:(.bss+0x0): first defined here
-collect2: error: ld returned 1 exit status
-make: *** [Makefile:11: jeopardy.exe] Error 1
+printf("Welcome to the C Command Line version of Jeopardy!\n\n");
+printf("In this game, you will be given a category and a clue. Your task is to provide the correct answer.\n");
+printf("The value of each question will be determined by its difficulty. The more difficult the question, the higher the value.\n");
+printf("Let's get started! Good luck and have fun!\n\n");
