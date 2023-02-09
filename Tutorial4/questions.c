@@ -55,12 +55,12 @@ void initialize_game(void)
     // };
 
     // initialize each question struct and assign it to the questions array
-    for (int i = 0; i < 12; i++) {
-        // strcpy(questions[i].category, categories[i%3]);
-        // strcpy(questions[i]->question, q[i]);
+    for (int i = 0; i < NUM_QUESTIONS; i++) {
+        strcpy(questions[i].category, categories[i%3]);
+        strcpy(questions[i].question, q[i]);
         // strcpy(questions[i].answer, a[i]);
-        // strcpy(questions[i].value, v[i%4]);
-        // questions[i].answered = false;
+        // strcpy(questions[i].value, v[i]);
+        questions[i].answered = false;
     }
 
 }
@@ -69,6 +69,42 @@ void initialize_game(void)
 void display_categories(void)
 {
     // print categories and dollar values for each unanswered question in questions array
+    int width = 40;
+
+    for (int i = 0; i < NUM_CATEGORIES; ++i) {
+		putchar('+');
+		for (int j = 0; j < width; ++j)
+			putchar('-');
+	}
+	printf("+\n");
+
+	for(int i = 0; i < NUM_CATEGORIES; i++) 
+		printf("| %-*s", width - 1, categories[i]);
+	printf("|\n");
+
+	for (int i = 0; i < NUM_CATEGORIES; ++i) {
+		putchar('+');
+		for (int j = 0; j < width; ++j)
+			putchar('-');
+	}
+
+	for(int i = 0; i < NUM_QUESTIONS; i++) {
+		if(questions[i].answered == false) {
+			printf("| $&-*d", width - 2, questions[i].value);
+		} else {
+			printf("| %-*s", width - 2, " - ");
+		}
+
+		if(i % NUM_CATEGORIES == 2)
+			printf("|\n");
+	}
+
+	for (int i = 0; i < NUM_CATEGORIES; ++i) {
+		putchar('+');
+		for (int j = 0; j < width; ++j)
+			putchar('-');
+	}
+    return 0;
 }
 
 // Displays the question for the category and dollar value

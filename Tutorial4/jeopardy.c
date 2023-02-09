@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "questions.h"
+// #include "questions.h"
 #include "players.h"
 #include "jeopardy.h"
 
@@ -37,19 +37,18 @@ int main(int argc, char *argv[])
     // Display the game introduction and initialize the questions
     initialize_game();
 
-    // Prompt for players names
+    // Prompt for players names, and initialize each of the players in the array
     for (int i = 0; i < 4; i++){
         players[i].score = 0;
         printf("Enter the name of player %d: ", (i + 1));
         scanf("%s", (char *) &players[i].name);
     }
-    
-    // initialize each of the players in the array
 
     // Perform an infinite loop getting command input from users until game ends
     while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
     {
         // Call functions from the questions and players source files
+        display_categories();
 
         // Execute the game until all questions are answered
 
