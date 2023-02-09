@@ -40,3 +40,7 @@ Answer: Sputnik 1
 
 
 error: request for member ‘answered’ in something not a structure or union
+
+usr/bin/ld: questions.o:(.bss+0x0): multiple definition of `questions'; jeopardy.o:(.bss+0x0): first defined here
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:11: jeopardy.exe] Error 1

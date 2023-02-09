@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-// #include "questions.h" // HAD TO REMOVE THIS LINE FOR THE MAKEFILE TO RUN
+#include "questions.h" // HAD TO REMOVE THIS LINE FOR THE MAKEFILE TO RUN
 
 // Initializes the array of questions for the game
 void initialize_game(void)
@@ -57,7 +57,7 @@ void initialize_game(void)
     // initialize each question struct and assign it to the questions array
     for (int i = 0; i < 12; i++) {
         // strcpy(questions[i].category, categories[i%3]);
-        strcpy(questions[i]->question, q[i]);
+        // strcpy(questions[i]->question, q[i]);
         // strcpy(questions[i].answer, a[i]);
         // strcpy(questions[i].value, v[i%4]);
         // questions[i].answered = false;
