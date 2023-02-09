@@ -19,12 +19,7 @@ void initialize_game(void)
     printf("The value of each question will be determined by its difficulty. The more difficult the question, the higher the value.\n");
     printf("Let's get started! Good luck and have fun!\n\n");
 
-    char *categories[] = {
-        "History", 
-        "Literature", 
-        "Science and Technology"
-    };
-    char *questions[] = {
+    char *q[] = {
         "What year did the American Civil War end?",
         "Who was the first president of the United States?",
         "What was the date of the attack on Pearl Harbor?",
@@ -38,34 +33,34 @@ void initialize_game(void)
         "What is the chemical symbol for gold?",
         "What is the name of the first artificial satellite to be launched into space?"
     };
-    char *answers[] = {
-        "1865",
-        "George Washington",
-        "December 7, 1941",
-        "Marcus Brutus and other senators",
-        "Jane Austen",
-        "Herman Melville",
-        "William Shakespeare",
-        "Harper Lee",
-        "Charles Babbage",
-        "Biology",
-        "Au",
-        "Sputnik 1"
-    };
-    int values[] = {
-        100,
-        200,
-        300,
-        400
-    };
+    // char *a[] = {
+    //     "1865",
+    //     "George Washington",
+    //     "December 7, 1941",
+    //     "Marcus Brutus and other senators",
+    //     "Jane Austen",
+    //     "Herman Melville",
+    //     "William Shakespeare",
+    //     "Harper Lee",
+    //     "Charles Babbage",
+    //     "Biology",
+    //     "Au",
+    //     "Sputnik 1"
+    // };
+    // int v[] = {
+    //     100,
+    //     200,
+    //     300,
+    //     400
+    // };
 
     // initialize each question struct and assign it to the questions array
     for (int i = 0; i < 12; i++) {
-        strcpy(questions[i].category, categories[i%3]);
-        strcpy(questions[i].question, questions[i]);
-        strcpy(questions[i].answer, answers[i]);
-        strcpy(questions[i].value, values[i%4]);
-        questions[i].answered = false;
+        // strcpy(questions[i].category, categories[i%3]);
+        strcpy(questions[i]->question, q[i]);
+        // strcpy(questions[i].answer, a[i]);
+        // strcpy(questions[i].value, v[i%4]);
+        // questions[i].answered = false;
     }
 
 }
