@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "questions.h" // HAD TO REMOVE THIS LINE FOR THE MAKEFILE TO RUN
+#include "questions.h"
 
 // Initializes the array of questions for the game
 void initialize_game(void)

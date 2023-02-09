@@ -2,6 +2,8 @@
     "files.associations": {
         "questions.h": "c",
         "players.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "string.h": "c"
     }
 }
