@@ -7,7 +7,7 @@ OBJECTS = $(subst .c,.o,$(SOURCES))
 EXE = jeopardy.exe
 .PHONY: clean help
 
-jeopardy.exe : jeopardy.o questions.o players.o
+$(EXE) : $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LIBS) -o $@ 
 
 %.o : %.c
