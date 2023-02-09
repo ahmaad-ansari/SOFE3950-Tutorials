@@ -38,6 +38,11 @@ int main(int argc, char *argv[])
     initialize_game();
 
     // Prompt for players names
+    for (int i = 0; i < 4; i++){
+        players[i].score = 0;
+        printf("Enter the name of player %d: ", (i + 1));
+        scanf("%s", (char *) &players[i].name);
+    }
     
     // initialize each of the players in the array
 
