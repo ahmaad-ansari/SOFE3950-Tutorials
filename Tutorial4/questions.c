@@ -21,45 +21,51 @@ void initialize_game(void)
 
     char *q[] = {
         "What year did the American Civil War end?",
-        "Who was the first president of the United States?",
-        "What was the date of the attack on Pearl Harbor?",
-        "Who was Julius Caesar assassinated by?",
         "Who wrote the novel 'Pride and Prejudice'?",
-        "Who wrote the novel 'Moby Dick'?",
-        "Who wrote the play 'Hamlet'?",
-        "Who wrote the novel 'To Kill a Mockingbird'?",
         "Who is considered the father of the computer?",
+
+        "Who was the first president of the United States?",
+        "Who wrote the novel 'Moby Dick'?",
         "What is the study of life called?",
+
+        "What was the date of the attack on Pearl Harbor?",
+        "Who wrote the play 'Hamlet'?",
         "What is the chemical symbol for gold?",
+
+        "Who was Julius Caesar assassinated by?",
+        "Who wrote the novel 'To Kill a Mockingbird'?",
         "What is the name of the first artificial satellite to be launched into space?"
     };
-    // char *a[] = {
-    //     "1865",
-    //     "George Washington",
-    //     "December 7, 1941",
-    //     "Marcus Brutus and other senators",
-    //     "Jane Austen",
-    //     "Herman Melville",
-    //     "William Shakespeare",
-    //     "Harper Lee",
-    //     "Charles Babbage",
-    //     "Biology",
-    //     "Au",
-    //     "Sputnik 1"
-    // };
-    // int v[] = {
-    //     100,
-    //     200,
-    //     300,
-    //     400
-    // };
+    char *a[] = {
+        "1865",
+        "Jane Austen",
+        "Charles Babbage",
+
+        "George Washington",
+        "Herman Melville",
+        "Biology",
+
+        "December 7, 1941",
+        "William Shakespeare",
+        "Au",
+
+        "Marcus Brutus and other senators",
+        "Harper Lee",
+        "Sputnik 1"
+    };
+    int v[] = {
+        100,
+        200,
+        300,
+        400 
+    };
 
     // initialize each question struct and assign it to the questions array
     for (int i = 0; i < NUM_QUESTIONS; i++) {
         strcpy(questions[i].category, categories[i%3]);
         strcpy(questions[i].question, q[i]);
-        // strcpy(questions[i].answer, a[i]);
-        // strcpy(questions[i].value, v[i]);
+        strcpy(questions[i].answer, a[i]);
+        questions[i].value = v[i/3];
         questions[i].answered = false;
     }
 
@@ -69,28 +75,41 @@ void initialize_game(void)
 void display_categories(void)
 {
     // print categories and dollar values for each unanswered question in questions array
-    int width = 40;
+    int width = 24;
 
     for (int i = 0; i < NUM_CATEGORIES; ++i) {
 		putchar('+');
-		for (int j = 0; j < width; ++j)
+		for (int j = 0; j < width; ++j) {
 			putchar('-');
+        }
 	}
 	printf("+\n");
 
-	for(int i = 0; i < NUM_CATEGORIES; i++) 
+	for(int i = 0; i < NUM_CATEGORIES; i++) {
 		printf("| %-*s", width - 1, categories[i]);
+    }
 	printf("|\n");
 
 	for (int i = 0; i < NUM_CATEGORIES; ++i) {
 		putchar('+');
-		for (int j = 0; j < width; ++j)
+		for (int j = 0; j < width; ++j) {
 			putchar('-');
+        }
 	}
+    printf("+\n");
+
+    // for(int i = 0; i < NUM_QUESTIONS; i++) {
+    //     printf("%s ", questions[i].category);
+    //     printf("%s ", questions[i].question);
+    //     printf("%s ", questions[i].answer);
+    //     printf("%d\n", questions[i].value);
+    // }
 
 	for(int i = 0; i < NUM_QUESTIONS; i++) {
-		if(questions[i].answered == false) {
-			printf("| $&-*d", width - 2, questions[i].value);
+		
+        if(questions[i].answered == false) {
+			// printf("| $%d", questions[i].value);
+            printf("| $%s", questions[result].category);
 		} else {
 			printf("| %-*s", width - 2, " - ");
 		}
@@ -101,9 +120,12 @@ void display_categories(void)
 
 	for (int i = 0; i < NUM_CATEGORIES; ++i) {
 		putchar('+');
-		for (int j = 0; j < width; ++j)
+		for (int j = 0; j < width; ++j) {
 			putchar('-');
+        }
 	}
+    printf("+\n");
+
     return 0;
 }
 

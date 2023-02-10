@@ -38,11 +38,11 @@ int main(int argc, char *argv[])
     initialize_game();
 
     // Prompt for players names, and initialize each of the players in the array
-    for (int i = 0; i < 4; i++){
-        players[i].score = 0;
-        printf("Enter the name of player %d: ", (i + 1));
-        scanf("%s", (char *) &players[i].name);
-    }
+    // for (int i = 0; i < 4; i++){
+    //     players[i].score = 0;
+    //     printf("Enter the name of player %d: ", (i + 1));
+    //     scanf("%s", (char *) &players[i].name);
+    // }
 
     // Perform an infinite loop getting command input from users until game ends
     while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
