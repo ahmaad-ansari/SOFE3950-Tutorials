@@ -98,20 +98,11 @@ void display_categories(void)
 	}
     printf("+\n");
 
-    // for(int i = 0; i < NUM_QUESTIONS; i++) {
-    //     printf("%s ", questions[i].category);
-    //     printf("%s ", questions[i].question);
-    //     printf("%s ", questions[i].answer);
-    //     printf("%d\n", questions[i].value);
-    // }
-
 	for(int i = 0; i < NUM_QUESTIONS; i++) {
-		
         if(questions[i].answered == false) {
-			// printf("| $%d", questions[i].value);
-            printf("| $%s", questions[result].category);
+            printf("|          $%d%s", questions[i].value, "          ");
 		} else {
-			printf("| %-*s", width - 2, " - ");
+			printf("|                        ");
 		}
 
 		if(i % NUM_CATEGORIES == 2)
