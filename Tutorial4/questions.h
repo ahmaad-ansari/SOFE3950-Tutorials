@@ -12,6 +12,7 @@
 
 #define MAX_LEN 256
 #define NUM_CATEGORIES 3
+#define NUM_VALUES 4
 // The number of questions, you can use this in your functions in
 // questions.c, this can be accessed in questions.c
 #define NUM_QUESTIONS 12

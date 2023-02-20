@@ -68,7 +68,6 @@ void initialize_game(void)
         questions[i].value = v[i/3];
         questions[i].answered = false;
     }
-
 }
 
 // Displays each of the remaining categories and question dollar values that have not been answered
@@ -76,7 +75,7 @@ void display_categories(void)
 {
     // print categories and dollar values for each unanswered question in questions array
     int width = 24;
-
+    printf("\n");
     for (int i = 0; i < NUM_CATEGORIES; ++i) {
 		putchar('+');
 		for (int j = 0; j < width; ++j) {
@@ -123,13 +122,22 @@ void display_categories(void)
 // Displays the question for the category and dollar value
 void display_question(char *category, int value)
 {
-
+    int q_index = get_question_index(category, value);
+    if (q_index >= 0) {
+        printf("%s\n", questions[q_index].question);
+    }
 }
 
 // Returns true if the answer is correct for the question for that category and dollar value
 bool valid_answer(char *category, int value, char *answer)
 {
-    // Look into string comparison functions
+    int q_index = get_question_index(category, value);
+    if (q_index >= 0) {
+        if(strcasecmp(answer, questions[q_index].answer) == 0){
+            questions[q_index].answered = true;
+            return true;
+        }
+    }
     return false;
 }
 
@@ -137,5 +145,40 @@ bool valid_answer(char *category, int value, char *answer)
 bool already_answered(char *category, int value)
 {
     // lookup the question and see if it's already been marked as answered
+    int q_index = get_question_index(category, value);
+    
+    return questions[q_index].answered;
+}
+
+bool valid_category(char *category)
+{
+    for(int i = 0; i < NUM_CATEGORIES; i++){
+        if(strcmp(categories[i], category) == 0){
+            return true;
+        }
+    }
     return false;
+}
+
+bool valid_value(char *category, int value)
+{
+    for (int i = 0; i < NUM_QUESTIONS; i++) {
+        if (strcmp(questions[i].category, category) == 0 && questions[i].value == value && questions[i].answered == false){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int get_question_index(char *category, int value)
+{
+    for (int i = 0; i < NUM_QUESTIONS; i++) {
+        if (strcmp(questions[i].category, category) == 0 && questions[i].value  == value) {
+            return i;
+        }
+    }
+    printf("Error: Question not found.\n");
+
+    return -1;
 }
