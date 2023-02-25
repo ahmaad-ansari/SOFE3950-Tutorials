@@ -95,6 +95,7 @@ int main(int argc, char *argv[])
         system("clear");
         printf ("Congratulations! You have completed the game. Below are your final scores:\n\n");
         show_results(players);
+        printf("\n\n");
         return EXIT_SUCCESS;
     }
 }
@@ -203,7 +204,7 @@ void show_results(player *players) {
         if (i == 0) {
             printf("\033[1;32m");
         }
-        printf("%s\t\t%d\n", players[i].name, players[i].score);
+        printf("%d\t\t%s\n", players[i].score, players[i].name);
         printf("\033[0m");
     }
 }
