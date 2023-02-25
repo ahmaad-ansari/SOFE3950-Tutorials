@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
                 else{
                     // Deduct points here
                     update_score(players, current_player, -current_value);
-                    printf("\n\n\033[1;31mINCORRECT!\033[0m %d points have been deducted from %s!\n\n", current_value, current_player);
+                    printf("\n\n\033[1;31mINCORRECT!\033[0m %d points have been deducted from \033[1;34m%s\033[0m!\n\n", current_value, current_player);
                     do {
                         random_player = random_number();
                     } while (strcmp(players[random_player].name, current_player) == 0);
@@ -93,10 +93,10 @@ int main(int argc, char *argv[])
         }
         // Display the final results and exit
         system("clear");
-        printf ("Congratulations! You have completed the game. Below are your final scores:\n");
+        printf ("Congratulations! You have completed the game. Below are your final scores:\n\n");
         show_results(players);
+        return EXIT_SUCCESS;
     }
-    return EXIT_SUCCESS;
 }
 
 int tokenize(char *str, char *delim, char *tokens[], int max_tokens) {
@@ -111,7 +111,7 @@ int tokenize(char *str, char *delim, char *tokens[], int max_tokens) {
 
 void enter_player() {
     do {
-        printf("\nEnter the name of the player that will be playing: ");
+        printf("Enter the name of the player that will be playing: ");
         scanf("%s", (char *) &current_player);
         if(player_exists(players, current_player)){
             error_check = false;
@@ -178,7 +178,7 @@ void ask_question() {
         err = true;
     }
     if (err) {
-        printf("\nMake sure your answer starts with 'what is' or 'who is' next time!");
+        printf("\nMake sure your answer starts with 'What is' or 'Who is' next time!");
     }
     else {
         strcpy(current_answer, tokens[2]);
