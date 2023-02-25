@@ -59,30 +59,32 @@ int main(int argc, char *argv[])
     while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
     {
         // Call functions from the questions and players source files
-        
-        enter_category_value();
+        while (questions_left()) {
+            enter_category_value();
         
 
-        while(!already_answered(current_category, current_value)){
-            ask_question();
-            if(valid_answer(current_category, current_value, current_answer)){
-                // Add points here
-                update_score(players, current_player, current_value);
-                printf("\n\nCORRECT! %d points have been awarded to %s!\n\n", current_value, current_player);
+            while(!already_answered(current_category, current_value)){
+                ask_question();
+                if(valid_answer(current_category, current_value, current_answer)){
+                    // Add points here
+                    update_score(players, current_player, current_value);
+                    printf("\n\nCORRECT! %d points have been awarded to %s!\n\n", current_value, current_player);
+                }
+                else{
+                    // Deduct points here
+                    update_score(players, current_player, -current_value);
+                    printf("\n\nINCORRECT! %d points have been deducted from %s!\n\n", current_value, current_player);
+                    do {
+                        random_player = random_number();
+                    } while (strcmp(players[random_player].name, current_player) == 0);
+                    // current_player = players[random_player].name;
+                    strcpy(current_player, players[random_player].name);
+                    printf("%s, it is your turn to steal!", current_player);
+                }
+                show_results(players);
             }
-            else{
-                // Deduct points here
-                update_score(players, current_player, -current_value);
-                printf("\n\nINCORRECT! %d points have been deducted from %s!\n\n", current_value, current_player);
-                do {
-                    random_player = random_number();
-                } while (strcmp(players[random_player].name, current_player) == 0);
-                // current_player = players[random_player].name;
-                strcpy(current_player, players[random_player].name);
-                printf("%s, it is your turn to steal!", current_player);
-            }
-            show_results(players);
         }
+        
         
 
 

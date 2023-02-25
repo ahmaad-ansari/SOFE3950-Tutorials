@@ -20,38 +20,38 @@ void initialize_game(void)
     printf("Let's get started! Good luck and have fun!\n\n");
 
     char *q[] = {
-        "What year did the American Civil War end?",
-        "Who wrote the novel 'Pride and Prejudice'?",
-        "Who is considered the father of the computer?",
+        "What was the name of the first civilization in ancient Mesopotamia?",
+        "In Shakespeare's tragedy, what is the name of the Danish prince seeking revenge for his father's death?",
+        "What is the name of the process by which plants convert sunlight into energy?",
 
-        "Who was the first president of the United States?",
-        "Who wrote the novel 'Moby Dick'?",
-        "What is the study of life called?",
+        "What 16th century queen was known for her short reign and her persecution of Protestants in England?",
+        "In J.R.R. Tolkien's epic fantasy series, what is the name of the wizard who guides Frodo and the Fellowship of the Ring?",
+        "What is the term for a device that measures the intensity of light?",
 
-        "What was the date of the attack on Pearl Harbor?",
-        "Who wrote the play 'Hamlet'?",
-        "What is the chemical symbol for gold?",
+        "What was the name of the ancient Egyptian writing system?",
+        "What classic dystopian novel by George Orwell features a society controlled by a totalitarian government and a protagonist named Winston Smith?",
+        "What is the name of the force that opposes motion between two surfaces in contact?",
 
-        "Who was Julius Caesar assassinated by?",
-        "Who wrote the novel 'To Kill a Mockingbird'?",
-        "What is the name of the first artificial satellite to be launched into space?"
+        "Who was the Roman emperor responsible for building a wall across Britain in the second century AD?",
+        "What is the one-word title of the novel by F. Scott Fitzgerald that features the character Jay Gatsby?",
+        "What is the name of the unit used to measure electric current?"
     };
     char *a[] = {
-        "1865",
-        "Jane Austen",
-        "Charles Babbage",
+        "Sumer",
+        "Hamlet",
+        "Photosynthesis",
 
-        "George Washington",
-        "Herman Melville",
-        "Biology",
+        "Mary",
+        "Gandalf",
+        "Photometer",
 
-        "December 7, 1941",
-        "William Shakespeare",
-        "Au",
+        "Hieroglyphs",
+        "1984",
+        "Friction",
 
-        "Marcus Brutus and other senators",
-        "Harper Lee",
-        "Sputnik 1"
+        "Hadrian",
+        "Gatsby",
+        "Ampere"
     };
     int v[] = {
         100,
@@ -181,4 +181,15 @@ int get_question_index(char *category, int value)
     printf("Error: Question not found.\n");
 
     return -1;
+}
+
+bool questions_left()
+{
+    for (int i =  0; i < NUM_QUESTIONS; i++) {
+        if (!questions[i].answered) {
+            return true;
+        }
+    }
+    
+    return false;
 }
