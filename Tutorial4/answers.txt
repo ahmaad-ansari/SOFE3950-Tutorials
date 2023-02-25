@@ -1,0 +1,24 @@
+History 100                 "Sumer"
+History 200                 "Mary"
+History 300                 "Hieroglyphs"
+History 400                 "Hadrian"
+
+Literature 100              "Hamlet"
+Literature 200              "Gandalf"
+Literature 300              "1984"
+Literature 400              "Gatsby"
+
+Science and Technology 100  "Photosynthesis"
+Science and Technology 200  "Photometer"
+Science and Technology 300  "Friction"
+Science and Technology 400  "Ampere"
+
+
+
+
+
+
+
+
+
+
