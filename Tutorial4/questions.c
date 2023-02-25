@@ -66,11 +66,8 @@ void initialize_game(void)
         strcpy(questions[i].question, q[i]);
         strcpy(questions[i].answer, a[i]);
         questions[i].value = v[i/3];
-        questions[i].answered = true;
+        questions[i].answered = false;
     }
-
-    questions[3].answered = false;
-    questions[9].answered = false;
 }
 
 // Displays each of the remaining categories and question dollar values that have not been answered
