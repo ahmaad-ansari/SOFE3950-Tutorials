@@ -65,19 +65,22 @@ int main(int argc, char *argv[])
             // Call functions from the questions and players source files
             enter_player();
             enter_category_value();
+            // Consume any remaining characters in the input buffer
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF) {}
 
             while(!already_answered(current_category, current_value)){
                 ask_question();
                 if(valid_answer(current_category, current_value, current_answer)){
                     // Add points here
                     update_score(players, current_player, current_value);
-                    printf("\n\nCORRECT! %d points have been awarded to %s!\n\n", current_value, current_player);
+                    printf("\n\n\033[1;32mCORRECT!\033[0m %d points have been awarded to \033[1;34m%s\033[0m!\n\n", current_value, current_player);
                     sleep(5);
                 }
                 else{
                     // Deduct points here
                     update_score(players, current_player, -current_value);
-                    printf("\n\nINCORRECT! %d points have been deducted from %s!\n\n", current_value, current_player);
+                    printf("\n\n\033[1;31mINCORRECT!\033[0m %d points have been deducted from %s!\n\n", current_value, current_player);
                     do {
                         random_player = random_number();
                     } while (strcmp(players[random_player].name, current_player) == 0);
@@ -89,6 +92,8 @@ int main(int argc, char *argv[])
             }
         }
         // Display the final results and exit
+        system("clear");
+        printf ("Congratulations! You have completed the game. Below are your final scores:\n");
         show_results(players);
     }
     return EXIT_SUCCESS;
@@ -127,7 +132,7 @@ void enter_category_value() {
     system("clear");
     display_categories();
     do {
-        printf("%s, pick a category: ", current_player);
+        printf("\033[1;34m%s\033[0m, pick a category: ", current_player);
         scanf("%s", (char *) &current_category);            
         if(valid_category(current_category)){
             error_check = false;
@@ -138,7 +143,7 @@ void enter_category_value() {
         }
     } while(error_check);
     do {
-        printf("%s, enter a value (numbers only): ", current_player);
+        printf("\033[1;34m%s\033[0m, enter a value (numbers only): ", current_player);
         scanf("%d", &current_value);
         if(valid_value(current_category, current_value)){
             error_check = false;
@@ -152,23 +157,19 @@ void enter_category_value() {
 
 void ask_question() {
     system("clear");
-    printf("This question is for: %s\n", current_player);
+    printf("This question is for: \033[1;34m%s\033[0m\n", current_player);
     printf("\nThe following is the question for %s $%d...\n", current_category, current_value);
     printf("Q: ");
     display_question(current_category, current_value);
     printf("A: ");
 
-    // Consume any remaining characters in the input buffer
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF) {}
-    
     fgets((char *) current_answer, MAX_LEN, stdin);
     // scanf("%s", (char *) &current_answer);
     
     bool err = false;
     char *tokens[10];
     int num_tokens = tokenize(current_answer, " \n", tokens, 10);
-    if (strcmp(tokens[0], "what") != 0 && strcmp(tokens[0], "who") != 0) {
+    if (strcmp(tokens[0], "What") != 0 && strcmp(tokens[0], "Who") != 0) {
         strcpy(current_answer, "");
         err = true;
     }
@@ -186,7 +187,6 @@ void ask_question() {
 }
 
 void show_results(player *players) {
-    system("clear");
     // Bubble Sort
     for (int i = 0; i < NUM_PLAYERS - 1; i++) {
         for (int j = 0; j < NUM_PLAYERS - i - 1; j++) {
@@ -200,7 +200,11 @@ void show_results(player *players) {
     }
 
     for(int i = 0; i < NUM_PLAYERS; i++){
+        if (i == 0) {
+            printf("\033[1;32m");
+        }
         printf("%s\t\t%d\n", players[i].name, players[i].score);
+        printf("\033[0m");
     }
 }
 
