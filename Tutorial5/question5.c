@@ -73,7 +73,7 @@ int main(void) {
 
     float class_avg_before = (float)total_grade / NUM_GRADES;
     float class_avg_after = (float)total_bellcurve / NUM_GRADES;
-    
+    fflush(stdout);
     printf("Total grade: %d\n", total_grade);
     printf("Class average before bellcurve: %.2f\n", class_avg_before);
     printf("Total bellcurve: %d\n", total_bellcurve);
