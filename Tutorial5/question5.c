@@ -36,7 +36,7 @@ void *save_bellcurve(void *arg) {
     total_grade += grade;
     pthread_mutex_unlock(&lock);
     
-    int bellcurve = (int) (grade *1.5);
+    int bellcurve = (int) (grade * 1.5);
 
     pthread_mutex_lock(&lock);
     total_bellcurve += bellcurve;
@@ -49,9 +49,7 @@ void *save_bellcurve(void *arg) {
     }
 
     fprintf(fp, "%d\n", bellcurve);
-    
     fclose(fp);
-    
     pthread_exit(NULL);
 }
 
@@ -73,7 +71,7 @@ int main(void) {
 
     float class_avg_before = (float)total_grade / NUM_GRADES;
     float class_avg_after = (float)total_bellcurve / NUM_GRADES;
-    fflush(stdout);
+    
     printf("Total grade: %d\n", total_grade);
     printf("Class average before bellcurve: %.2f\n", class_avg_before);
     printf("Total bellcurve: %d\n", total_bellcurve);
