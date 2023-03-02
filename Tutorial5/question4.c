@@ -47,7 +47,7 @@ int main(void) {
         }
     }
 
-    printf("Total grade: %d\n", total_grade);
+    printf("\nTotal grade: %d\n", total_grade);
 
     return 0;
 }
