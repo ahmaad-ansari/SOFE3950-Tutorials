@@ -31,6 +31,8 @@ void *read_grades(void *arg) {
 
 void *save_bellcurve(void *arg) {
     int grade = *((int *)arg);
+
+    pthread_barrier_wait(&barrier);
     
     pthread_mutex_lock(&lock);
     total_grade += grade;
@@ -48,7 +50,13 @@ void *save_bellcurve(void *arg) {
         exit(1);
     }
 
-    fprintf(fp, "%d\n", bellcurve);
+    if (fprintf(fp, "%d\n", bellcurve) < 0) {
+        printf("Error: Unable to write to file.\n");
+        fclose(fp);
+        return (NULL);
+    }
+
+    
     fclose(fp);
     pthread_exit(NULL);
 }
