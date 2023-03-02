@@ -4,48 +4,50 @@
 #include <unistd.h>
 
 #define _XOPEN_SOURCE 600 // Required for barriers to work
+#define NUM_STUDENTS 10
 
-typedef struct {
-    char name[50];
-    int id;
-    int grade;
-} student;
+int grades[NUM_STUDENTS]; // Array to hold grades
+int total_grade = 0; // Global variable for the total grade
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER; // Mutex for mutual exclusion
 
-void *bellcurve(void *data) {
-    // Cast the data pointer to a student pointer
-    student *p_student = (student *) data;
+void *class_total(void *arg) {
+    // Cast the arg pointer to an int pointer
+    int grade = *((int *) arg);
 
-    // Bellcurve the grade
-    int bellcurved_grade = p_student->grade * 1.50;
-
-    printf("Name: %s, ID: %d, Bellcurved grade: %d\n", p_student->name, p_student->id, bellcurved_grade);
+    pthread_mutex_lock(&mutex); // Acquire lock
+    total_grade += grade; // Increment total_grade
+    pthread_mutex_unlock(&mutex); // Release lock
 
     pthread_exit(NULL);
 }
 
 int main(void) {
-    student students[5];
-    pthread_t tids[5];
+    pthread_t tids[NUM_STUDENTS];
 
-    // Prompt the professor for five student's grades
-    printf("Enter five student's names, IDs, and grades:\n");
-
-    for (int i = 0; i < 5; i++) {
+    // Prompt the professor for grades and store them in the array
+    printf("Enter the grades of %d students:\n", NUM_STUDENTS);
+    for (int i = 0; i < NUM_STUDENTS; i++) {
         printf("Student %d: ", (i+1));
-        scanf("%s %d %d", students[i].name, &students[i].id, &students[i].grade);
+        scanf("%d", &grades[i]);
     }
 
-    printf("\nThe bellcurved grades and student information are: \n");
-
-    // Create threads
-    for (int i = 0; i < 5; i++) {
-        pthread_create(&tids[i], NULL, bellcurve, (void *) &students[i]);
+    // Create threads for each student and pass in their grade as the argument
+    for (int i = 0; i < NUM_STUDENTS; i++) {
+        if (pthread_create(&tids[i], NULL, class_total, &grades[i])) {
+            fprintf(stderr, "Error creating thread for student %d\n", i);
+            exit(1);
+        }
     }
 
     // Wait for threads to finish
-    for (int i = 0; i < 5; i++) {
-        pthread_join(tids[i], NULL);
+    for (int i = 0; i < NUM_STUDENTS; i++) {
+        if (pthread_join(tids[i], NULL)) {
+            fprintf(stderr, "Error joining thread for student %d\n", i);
+            exit(1);
+        }
     }
+
+    printf("Total grade: %d\n", total_grade);
 
     return 0;
 }
