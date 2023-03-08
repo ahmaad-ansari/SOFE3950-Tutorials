@@ -52,11 +52,13 @@ void read_grades() {
 
 int main() {
     pthread_t threads[NUM_THREADS];
+    pthread_t read_grades_thread[1];
 
     pthread_barrier_init(&barrier, NULL, NUM_THREADS + 1);
     pthread_mutex_init(&mutex, NULL);
-
-    read_grades();
+    
+    pthread_create(&read_grades_thread[0], NULL, read_grades, NULL);
+    pthread_join(read_grades_thread[0], NULL);
 
     for (int i = 0; i < NUM_THREADS; i++) {
         pthread_create(&threads[i], NULL, save_bellcurve, &grades[i]);
