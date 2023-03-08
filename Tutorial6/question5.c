@@ -3,6 +3,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 #define NUM_THREADS 5
 
