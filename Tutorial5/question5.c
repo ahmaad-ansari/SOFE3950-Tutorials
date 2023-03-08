@@ -1,3 +1,4 @@
+#define _XOPEN_SOURCE 600
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -28,8 +29,8 @@ void* save_bellcurve(void* arg) {
         fprintf(fp, "%.2f\n", bellcurve);
         fclose(fp);
     }
-
     pthread_mutex_unlock(&mutex);
+    
     pthread_barrier_wait(&barrier);
 
     return NULL;
