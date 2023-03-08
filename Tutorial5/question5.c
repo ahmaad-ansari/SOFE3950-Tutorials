@@ -1,68 +1,81 @@
-#define _XOPEN_SOURCE 600
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <unistd.h>
+#include <stdbool.h>
 
-#define NUM_GRADES 10
+#define NUM_THREADS 10
+#define GRADES_FILE "grades.txt"
+#define BELLCURVE_FILE "bellcurve.txt"
 
-int grades[NUM_GRADES];
+int grades[NUM_THREADS];
 int total_grade = 0;
-int total_bellcurve = 0;
+float total_bellcurve = 0.0;
 
 pthread_barrier_t barrier;
 pthread_mutex_t mutex;
-pthread_t threads[NUM_GRADES];
 
-void *save_bellcurve(void *arg) {
-    int grade = *(int *)arg;
-    int bellcurve = grade * 1.5;
+void* save_bellcurve(void* arg) {
+    int* grade = (int*) arg;
+    float bellcurve = (*grade) * 1.5;
 
     pthread_mutex_lock(&mutex);
-    total_grade += grade;
+    total_grade += (*grade);
     total_bellcurve += bellcurve;
+
+    FILE* fp = fopen(BELLCURVE_FILE, "a");
+    if (fp != NULL) {
+        fprintf(fp, "%.2f\n", bellcurve);
+        fclose(fp);
+    }
+
     pthread_mutex_unlock(&mutex);
-
-    FILE *file = fopen("bellcurve.txt", "a");
-    fprintf(file, "%d\n", bellcurve);
-    fclose(file);
-
     pthread_barrier_wait(&barrier);
 
     return NULL;
 }
 
 void read_grades() {
-    FILE *file = fopen("grades.txt", "r");
-    for (int i = 0; i < NUM_GRADES; i++) {
-        fscanf(file, "%d", &grades[i]);
+    FILE* fp = fopen(GRADES_FILE, "r");
+    if (fp == NULL) {
+        printf("Error opening file %s\n", GRADES_FILE);
+        exit(EXIT_FAILURE);
     }
-    fclose(file);
-    pthread_barrier_wait(&barrier);
+
+    for (int i = 0; i < NUM_THREADS; i++) {
+        fscanf(fp, "%d", &grades[i]);
+    }
+
+    fclose(fp);
 }
 
 int main() {
-    pthread_barrier_init(&barrier, NULL, NUM_GRADES + 1);
+    pthread_t threads[NUM_THREADS];
+
+    pthread_barrier_init(&barrier, NULL, NUM_THREADS + 1);
     pthread_mutex_init(&mutex, NULL);
 
     read_grades();
 
-    for (int i = 0; i < NUM_GRADES; i++) {
+    for (int i = 0; i < NUM_THREADS; i++) {
         pthread_create(&threads[i], NULL, save_bellcurve, &grades[i]);
     }
 
-    for (int i = 0; i < NUM_GRADES; i++) {
-        pthread_join(threads[i], NULL);
-    }
+    pthread_barrier_wait(&barrier);
 
-    double class_avg = (double)total_grade / NUM_GRADES;
-    double bellcurve_avg = (double)total_bellcurve / NUM_GRADES;
+    float class_avg_before = (float) total_grade / NUM_THREADS;
+    float class_avg_after = total_bellcurve / NUM_THREADS;
 
     printf("Total grade: %d\n", total_grade);
-    printf("Class average before bellcurve: %f\n", class_avg);
-    printf("Class average after bellcurve: %f\n", bellcurve_avg);
+    printf("Class average before bellcurve: %.2f\n", class_avg_before);
+    printf("Class average after bellcurve: %.2f\n", class_avg_after);
+
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], NULL);
+    }
 
     pthread_barrier_destroy(&barrier);
     pthread_mutex_destroy(&mutex);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
